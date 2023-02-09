@@ -6,7 +6,6 @@ import os
 import reader
 import nest_asyncio
 
-
 # GRAB THE API TOKEN FROM THE .ENV FILE.
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
@@ -27,12 +26,13 @@ async def on_ready():
 
     print("Discord bot is live.")
 
+
 # EVENT LISTENER FOR WHEN A NEW MESSAGE IS SENT TO A CHANNEL.
 @bot.event
 async def on_message(message):
-  print(message.content)
-  if bot.user.mentioned_in(message):
+    if bot.user.mentioned_in(message):
         await message.channel.send(reader.query(message.content))
+
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
 bot.run(DISCORD_TOKEN)
