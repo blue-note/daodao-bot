@@ -22,7 +22,8 @@ bot = discord.Client(intents=intents)
 @bot.event
 async def on_ready():
     nest_asyncio.apply()
-    reader.load()
+    bot.reader = reader.Reader()
+    bot.reader.init(os.getenv("INDEX_PATH"))
 
     print("Discord bot is live.")
 
@@ -31,7 +32,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if bot.user.mentioned_in(message):
-        await message.channel.send(reader.query(message.content))
+        await message.channel.send(bot.reader.query(message.content))
 
 
 # EXECUTES THE BOT WITH THE SPECIFIED TOKEN. TOKEN HAS BEEN REMOVED AND USED JUST AS AN EXAMPLE.
