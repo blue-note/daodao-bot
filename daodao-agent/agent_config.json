@@ -1,0 +1,52 @@
+{
+    "discord": {
+        "CHANNEL_IDS": [
+            1032788394893398026,
+            1012766561947373588,
+            895926429039075328,
+            899174129629016065,
+            895926400970801173,
+            1001205045028733068,
+            994018635410575440,
+            1016788083104026664,
+            1037828164434542603,
+            991097457079361627,
+            1037828427765522582,
+            1037829431688966316,
+            1009233584227364986,
+            928533641489969203,
+            935733580938768444,
+            906951493784072252,
+            982411454550507540,
+            1009233584227364986,
+            928533641489969203,
+            935733580938768444,
+            906951493784072252,
+            982411454550507540,
+            1033477382616653885,
+            1037445461818228736,
+            1042148985474924576,
+            954211865737707540,
+            895926354728603659,
+            941044521909780500,
+            958870078143733770
+        ]
+    },
+    "zulip": {
+        "CONFIG_PATH": "~/zuliprc.txt",
+        "SERVER_URL": "https://plurigrid.zulipchat.com",
+        "STREAM": "unhack",
+        "TOPIC": "gm",
+        "BOT_EMAIL": "plurigrid-bot@plurigrid.zulipchat.com"
+    },
+    "cosmos_client": {
+        "CHAIN_ID": "juno",
+        "LCD_URL": "https://lcd-juno.keplr.app",
+        "CONTRACT_ADDRESS": "juno177zg5chuaxelxhr7qjzgjrvhm75c042xtme564d3mf7g3928pydq3x8lku"
+    },
+    "index": {
+        "INDEX_MODE": "discord",
+        "DATA_DIR": "/Users/janitachalam/code/plurigrid/ontology/journal/janita",
+        "INDEX_PATH": "agent/indices/index.json"
+    }
+}
