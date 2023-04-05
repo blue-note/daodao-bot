@@ -27,7 +27,7 @@ jobs:
       with:
         title: 'Automerge: ${{ github.event.ref }}'
         body: 'Automatically merging branch ${{ github.event.ref }}'
-        branch: 'automerge-${{ github.event.ref }}'
+        branch: '${{ github.event.ref }}'
         commit-message: 'Automerge ${{ github.event.ref }}'
         base: 'main' # or your default branch
 
