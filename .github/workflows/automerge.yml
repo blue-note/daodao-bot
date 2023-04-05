@@ -1,0 +1,38 @@
+name: Auto-Merge New Branches
+
+on:
+  push:
+    branches-ignore:
+      - 'main' # or your default branch
+
+jobs:
+  automerge-new-branches:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.ref }}
+
+    - name: Create pull request
+      id: create_pr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: 'Automerge: ${{ github.event.ref }}'
+        body: 'Automatically merging branch ${{ github.event.ref }}'
+        branch: 'automerge-${{ github.event.ref }}'
+        commit-message: 'Automerge ${{ github.event.ref }}'
+        base: 'main' # or your default branch
+
+    - name: Check if pull request was created
+      if: ${{ steps.create_pr.outputs.pull-request-number }}
+      run: echo "Created pull request #${{ steps.create_pr.outputs.pull-request-number }}"
+
+    - name: Merge pull request
+      if: ${{ steps.create_pr.outputs.pull-request-number }}
+      uses: pascalgn/automerge-action@v0.14.3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
+        merge-method: "merge" # or "rebase" or "squash" based on desired merge strategy
