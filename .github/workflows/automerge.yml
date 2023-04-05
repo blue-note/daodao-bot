@@ -33,7 +33,7 @@ jobs:
 
     - name: Check if pull request was created
       if: ${{ steps.create_pr.outputs.pull-request-number }}
-      run: echo "Created pull request #${{ steps.create_pr.outputs.pull-request-number }}"
+      run: echo "Created pull request" #${{ steps.create_pr.outputs.pull-request-number }}"
 
     - name: Merge pull request
       if: ${{ steps.create_pr.outputs.pull-request-number }}
