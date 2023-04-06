@@ -36,6 +36,7 @@ jobs:
       run: echo "Created pull request" #${{ steps.create_pr.outputs.pull-request-number }}"
 
   automerge:
+    needs: auto-create-pr
     runs-on: ubuntu-latest
     steps:
       - id: automerge
