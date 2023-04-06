@@ -6,14 +6,40 @@ on:
       - 'main' # or your default branch
 
 jobs:
-  auto-merge:
+  auto-create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.ref }}
+        fetch-depth: 0 # Fetch all history
+
+    - name: Debug repository info
+      run: |
+        git remote show origin
+        git branch -avv
+
+    - name: Create pull request
+      id: create_pr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: 'Automerge: ${{ github.event.ref }}'
+        body: 'Automatically merging branch ${{ github.event.ref }}'
+        branch: '${{ github.event.ref }}'
+        commit-message: 'Automerge ${{ github.event.ref }}'
+        base: 'main' # or your default branch
+
+    - name: Check if pull request was created
+      if: ${{ steps.create_pr.outputs.pull-request-number }}
+      run: echo "Created pull request #${{ steps.create_pr.outputs.pull-request-number }}"
+
+  automerge:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Auto-merge pull request
-        uses: peter-evans/auto-merge@v2.5.1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: squash
-          delete-branch: true
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.6"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
