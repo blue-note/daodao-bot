@@ -37,8 +37,9 @@ jobs:
 
     - name: Merge pull request
       if: ${{ steps.create_pr.outputs.pull-request-number }}
-      uses: pascalgn/automerge-action@v0.14.3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        pull-request-number: ${{ steps.create_pr.outputs.pull-request-number }}
-        merge-method: "merge" # or "rebase" or "squash" based on desired merge strategy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PULL_REQUEST_NUMBER: ${{ steps.create_pr.outputs.pull-request-number }}
+      run: |
+        echo "Merging pull request #${PULL_REQUEST_NUMBER}"
+        gh pr merge -s merge -m "Automerge" "${PULL_REQUEST_NUMBER}" || echo "Already merged or closed"
